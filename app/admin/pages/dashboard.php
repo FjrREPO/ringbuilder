@@ -2,7 +2,7 @@
 include '../../config/conn.php';
 $currentYear = date('Y');
 
-$sql = "SELECT MONTH(createdAt) AS month, SUM(totalPrice) AS total FROM payment WHERE YEAR(createdAt) = $currentYear GROUP BY MONTH(createdAt)";
+$sql = "SELECT MONTH(createdAt) AS month, SUM(totalPrice) AS total FROM payment WHERE status = 'success' AND YEAR(createdAt) = $currentYear GROUP BY MONTH(createdAt)";
 $result = $conn->query($sql);
 
 $incomeData = array_fill(0, 12, 0);

@@ -44,7 +44,7 @@
             <a id="dashboardLinkMobile" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="dashboard">
                 Dashboard
             </a>
-            <a id="dashboardLinkMobile" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="Chat">
+            <a id="dashboardLinkMobile" class="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="chat">
             Chat
             </a>
             <a id="moviesLinkMobile" class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark:bg-transparent dark:hover:bg-gray-600 dark:focus:bg-gray-600 dark:focus:text-white dark:hover:text-white dark:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="movies">

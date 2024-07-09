@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert user data
     $sql_insert = "INSERT INTO user (user_username, user_email, user_password, user_image, user_role)
                    VALUES (?, ?, ?, ?, 'user')";
-    $user_image = "https://example.com/default_image.jpg";
+    $user_image = "https://www.mountsinai.on.ca/wellbeing/our-team/team-images/person-placeholder/image";
     $stmt = mysqli_prepare($conn, $sql_insert);
     mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $password_hashed, $user_image);
     $insert_result = mysqli_stmt_execute($stmt);

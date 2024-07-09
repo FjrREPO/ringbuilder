@@ -1,9 +1,9 @@
 <?php
-include "../../../../config/conn.php";
+include "../../../../../config/conn.php";
 
-if ($_SERVER["REQUEST_METHOD"] === "DELETE" && isset($_GET['user_id'])) {
-    $movieId = $_GET['id'];
-    $query = mysqli_query($conn, "DELETE FROM user WHERE user_id = $movieId");
+if ($_SERVER["REQUEST_METHOD"] === "DELETE") {
+    $userId = $_GET['id'];
+    $query = mysqli_query($conn, "DELETE FROM user WHERE user_id = $userId");
 
     if ($query) {
         echo json_encode(['success' => true]);

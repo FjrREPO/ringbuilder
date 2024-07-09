@@ -72,7 +72,7 @@ $query = mysqli_query($conn, "SELECT * FROM user");
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`pages/controller/payments/user/delete_user.php?id=${userId}`, {
+                fetch(`pages/controller/user/delete_user.php?id=${userId}`, {
                         method: 'DELETE'
                     })
                     .then(response => response.json())

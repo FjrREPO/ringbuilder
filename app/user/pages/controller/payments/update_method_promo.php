@@ -11,6 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
+    // Calculate total price
+    $feeAdmin = 5000;
+    $promoCode = isset($_POST['promoCode']) ? mysqli_real_escape_string($conn, $_POST['promoCode']) : '';
+    $methodPayment = isset($_POST['methodPayment']) ? mysqli_real_escape_string($conn, $_POST['methodPayment']) : '';
+
     // Fetch payment details
     $queryPayment = "SELECT * FROM payment WHERE id = $paymentId";
     $resultPayment = mysqli_query($conn, $queryPayment);
@@ -22,20 +27,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $paymentData = mysqli_fetch_assoc($resultPayment);
     $price = $paymentData['price'];
-    
-    // Calculate total price
-    $feeAdmin = 5000;
-    $promoCode = isset($_POST['promoCode']) ? mysqli_real_escape_string($conn, $_POST['promoCode']) : '';
-    $methodPayment = isset($_POST['methodPayment']) ? mysqli_real_escape_string($conn, $_POST['methodPayment']) : '';
+    $totalPrice = $price + $feeAdmin; // Initialize total price with base price + admin fee
 
+    // Check if promo code is provided and valid
     if (!empty($promoCode)) {
-        $queryPaymentPromo = "SELECT * FROM payment_promo WHERE promoCode LIKE '%$promoCode%'";
-        $resultPaymentPromo = mysqli_query($conn, $queryPaymentPromo);
+        $queryPromoCode = "SELECT * FROM payment_promo WHERE promoCode = '$promoCode'";
+        $resultPromoCode = mysqli_query($conn, $queryPromoCode);
 
-        if ($resultPaymentPromo && mysqli_num_rows($resultPaymentPromo) > 0) {
-            $rowPaymentPromo = mysqli_fetch_assoc($resultPaymentPromo);
-            $promoDiscount = $rowPaymentPromo['priceDisc'];
-            $totalPrice = $price + $feeAdmin - $promoDiscount;
+        if ($resultPromoCode && mysqli_num_rows($resultPromoCode) > 0) {
+            $rowPromoCode = mysqli_fetch_assoc($resultPromoCode);
+            $promoDiscount = $rowPromoCode['priceDisc'];
+            $totalPrice -= $promoDiscount; // Apply promo discount
         } else {
             echo "<script>
                     alert('Promo code is invalid!');
@@ -43,8 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   </script>";
             exit;
         }
-    } else {
-        $totalPrice = $price + $feeAdmin;
     }
 
     // Update payment record

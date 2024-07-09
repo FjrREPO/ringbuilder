@@ -104,9 +104,9 @@
                 </div>
                 <div class="flex w-1/4 flex-col mt-8" id='at-block-right'>
                     <div class="text-white text-4xl">Alamat Kantor</div>
-                    <div>Gatau anjing</div>
+                    <div>Jogja</div>
                     <div class="text-white text-4xl mt-4">Kontak kami</div>
-                    <div>kepo bangsat</div>
+                    <div>081216483555</div>
                 </div>
             </div>
         </div>

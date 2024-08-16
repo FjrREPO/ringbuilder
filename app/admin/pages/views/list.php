@@ -1,7 +1,7 @@
 <?php
 include "../../config/conn.php";
 
-$query = mysqli_query($conn, "SELECT * FROM payment_promo");
+$query = mysqli_query($conn, "SELECT * FROM computer");
 ?>
 
 <section class="bg-gray-50 dark:bg-black p-3 sm:p-5">
@@ -26,7 +26,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                         <svg class="h-3.5 w-3.5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                         </svg>
-                        Tambah Promo
+                        Tambah Komponen
                     </button>
                 </div>
             </div>
@@ -34,32 +34,35 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-black/20 uppercase bg-gray-50 dark:bg-black/20 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-4 py-3">Kode</th>
-                            <th scope="col" class="px-4 py-3">Harga Diskon</th>
-                            <th scope="col" class="px-4 py-3">Berlaku</th>
-                            <th scope="col" class="px-4 py-3">Kadaluwarsa</th>
+                            <th scope="col" class="px-4 py-3">Nama</th>
+                            <th scope="col" class="px-4 py-3">Deskripsi</th>
+                            <th scope="col" class="px-4 py-3">Harga</th>
+                            <th scope="col" class="px-4 py-3">Gambar</th>
+                            <th scope="col" class="px-4 py-3">Jenis</th>
                             <th scope="col" colspan="2" class="px-4 py-3">
                                 <span class="sr-only">Aksi</span>
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="paymentList">
+                    <tbody id="computerList">
                         <?php
                         while ($row = mysqli_fetch_assoc($query)) {
                         ?>
                             <tr class="border-b dark:border-black/20">
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <?= $row['promoCode']; ?></th>
-                                <td class="px-4 py-3"><span><?= $row['priceDisc']; ?></span></td>
-                                <td class="px-4 py-3"><span><?= $row['usable']; ?></span></td>
-                                <td class="px-4 py-3"><span><?= $row['expired']; ?></span></td>
+                                    <?= htmlspecialchars($row['title']); ?>
+                                </th>
+                                <td class="px-4 py-3 max-w-[100px] line-clamps-2"><span><?= htmlspecialchars($row['deskripsi']); ?></span></td>
+                                <td class="px-4 py-3"><span><?= number_format($row['harga'], 0, ',', '.'); ?></span></td>
+                                <td class="px-4 py-3"><img src="<?= htmlspecialchars($row['gambar']); ?>" alt="Gambar <?= htmlspecialchars($row['title']); ?>" width="50"></td>
+                                <td class="px-4 py-3"><span><?= htmlspecialchars($row['jenis']); ?></span></td>
                                 <td class="px-4 py-3">
-                                    <a href="edit_payment_promo_code?id=<?= $row['id']; ?>" class="text-green-600 hover:text-green-800">
+                                    <a href="edit_list?id=<?= $row['id']; ?>" class="text-green-600 hover:text-green-800">
                                         <i class="fa-solid fa-pen-to-square text-green-500"></i>
                                     </a>
                                 </td>
                                 <td class="px-4 py-3">
-                                    <button class="text-red-600 hover:text-red-800" onclick="deletePaymentPromo(<?= $row['id']; ?>)"><i class="fa-solid fa-trash text-red-500"></i></button>
+                                    <button class="text-red-600 hover:text-red-800" onclick="deleteComputer(<?= $row['id']; ?>)"><i class="fa-solid fa-trash text-red-500"></i></button>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -75,50 +78,97 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="flex items-center justify-between p-4 md:p-5 border-b dark:border-gray-600 border-gray-200">
                 <h3 class="text-xl font-medium text-gray-700 dark:text-white">
-                    Tambah Data Promo
+                    Tambah Data Komputer
                 </h3>
                 <button id="closeAddModal" type="button" class="text-gray-400 dark:text-gray-300 focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" d="M19.071 4.929a1 1 0 010 1.414L5.757 19.071a1 1 0 01-1.414-1.414L17.657 4.93a1 1 0 011.414 0z" fill-rule="evenodd"></path>
+                        <path clip-rule="evenodd" fill-rule="evenodd" d="M19.071 4.929a1 1 0 010 1.414L5.757 19.071a1 1 0 01-1.414-1.414L17.657 4.93a1 1 0 011.414 0z" fill-rule="evenodd"></path>
                         <path clip-rule="evenodd" d="M4.929 4.929a1 1 0 00-1.414 1.414L18.243 19.07a1 1 0 001.414-1.413L4.929 4.93z" fill-rule="evenodd"></path>
                     </svg>
                 </button>
             </div>
-            <form id="addPaymentPromoForm" class="p-4 md:p-5" action="pages/controller/payments/payment_promo_code/add_payment_promo_code.php" method="POST">
-                <input type="hidden" id="paymentPromoId" name="paymentPromoId" value="">
+            <form id="addComputerForm" class="p-4 md:p-5" action="pages/controller/list/add_list.php" method="POST">
                 <div class="flex flex-row w-full gap-3">
                     <div class="mb-4 w-1/2">
-                        <label for="promoCode" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Kode Promo</label>
-                        <input type="text" id="promoCode" name="promoCode" placeholder="nama paket" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
+                        <label for="title" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Nama Komputer</label>
+                        <input type="text" id="title" name="title" placeholder="Nama Komputer" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
                     </div>
                     <div class="mb-4 w-1/2">
-                        <label for="priceDisc" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Diskon</label>
-                        <input type="number" id="priceDisc" name="priceDisc" placeholder="0" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
+                        <label for="harga" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Harga</label>
+                        <input type="number" id="harga" name="harga" placeholder="Harga" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
                     </div>
                 </div>
-                <div class="flex flex-row w-full gap-3">
-                    <div class="mb-4 w-1/2">
-                        <label for="usable" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Tgl. Berlaku</label>
-                        <input type="datetime-local" id="usable" name="usable" placeholder="0" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
-                    </div>
-                    <div class="mb-4 w-1/2">
-                        <label for="expired" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Tgl. Expired</label>
-                        <input type="datetime-local" id="expired" name="expired" placeholder="0" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
-                    </div>
+                <div class="mb-4">
+                    <label for="gambar" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">URL Gambar</label>
+                    <input type="text" id="imageCard" name="gambar" placeholder="URL Gambar" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
+                    <button id="uploadWidget" type="button" class="mt-2 text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Upload Gambar</button>
+                    <img id="imageCardPreview" class="mt-2 hidden w-32 h-32 object-cover" />
                 </div>
-                <div class="mt-2 flex justify-center w-full">
-                    <button type="submit" id="savePaymentPromoBtn" class="bg-gray-600 hover:bg-gray-700 text-white rounded-md px-4 py-2 transition duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300">Tambah</button>
+                <div class="mb-4">
+                    <label for="jenis" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Jenis</label>
+                    <input type="text" id="jenis" name="jenis" placeholder="Jenis Komputer" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
+                </div>
+                <div class="mb-4">
+                    <label for="deskripsi" class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Deskripsi</label>
+                    <input type="text" id="deskripsi" name="deskripsi" placeholder="deskripsi" required class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring-gray-500 focus:border-gray-500 dark:bg-gray-800 dark:border-gray-600 dark:focus:ring-gray-500 dark:focus:border-gray-500 dark:text-white">
+                </div>
+                <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button id="submitAddForm" type="submit" class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-600 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800">Tambah</button>
+                    <button type="button" id="cancelAddModal" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-4 py-2 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Batal</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#uploadWidget').click(function() {
+            cloudinary.openUploadWidget({
+                cloudName: 'dv3z889zh', // replace with your Cloudinary cloud name
+                uploadPreset: 'z6euuqyl', // replace with your upload preset
+                sources: ['local', 'url', 'camera'],
+                multiple: false,
+                maxFileSize: 2000000, // optional max file size in bytes (2MB in this example)
+                maxImageWidth: 2000, // optional max image width
+                maxImageHeight: 2000 // optional max image height
+            }, function(error, result) {
+                if (!error && result && result.event === "success") {
+                    const imageUrl = result.info.secure_url;
+                    $('#imageCard').val(imageUrl); // set the image URL to the input field
+                    $('#imageCardPreview').attr('src', imageUrl); // set the image URL to the img element
+                    $('#imageCardPreview').removeClass('hidden');
+                }
+            });
+        });
+
+        $('#closeAddModal').click(function() {
+            $('#add-modal').addClass('hidden');
+        });
+
+        $('#cancelAddModal').click(function() {
+            $('#add-modal').addClass('hidden');
+        });
+
+        $('#addBtn').click(function() {
+            $('#add-modal').removeClass('hidden');
+        });
+    });
+
+    function deleteComputer(id) {
+        if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+            window.location.href = `pages/controller/liat/delete_list.php?id=${id}`;
+        }
+    }
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const addModal = document.getElementById('add-modal');
         const closeAddModalBtn = document.getElementById('closeAddModal');
-        const addPaymentPromoForm = document.getElementById('addPaymentPromoForm');
+        const addComputerCardForm = document.getElementById('addComputerForm');
 
         document.getElementById('addBtn').addEventListener('click', function() {
             addModal.classList.remove('hidden');
@@ -130,12 +180,12 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
             document.body.classList.remove('overflow-hidden');
         });
 
-        addPaymentPromoForm.addEventListener('submit', function(event) {
+        addComputerCardForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const formData = new FormData(addPaymentPromoForm);
+            const formData = new FormData(addComputerCardForm);
 
-            fetch('pages/controller/payments/payment_promo_code/add_payment_promo_code.php', {
+            fetch('pages/controller/list/add_list.php', {
                     method: 'POST',
                     body: formData
                 })
@@ -145,7 +195,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                         Swal.fire({
                             icon: 'success',
                             title: 'Success',
-                            text: 'PaymentPromo added successfully!',
+                            text: 'Component added successfully!',
                         }).then(() => {
                             location.reload();
                         });
@@ -153,7 +203,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                         Swal.fire({
                             icon: 'error',
                             title: 'Error',
-                            text: 'Failed to add payment. Please try again.',
+                            text: 'Failed to add Component. Please try again.',
                         });
                     }
                 })
@@ -161,7 +211,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'PaymentPromo added successfully!',
+                        text: 'Component added successfully!',
                     }).then(() => {
                         location.reload();
                     });
@@ -171,7 +221,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
 </script>
 
 <script>
-    function deletePaymentPromo(paymentPromoId) {
+    function deleteComputer(id) {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -182,7 +232,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`pages/controller/payments/payment_promo_code/delete_payment_promo_code.php?id=${paymentPromoId}`, {
+                fetch(`pages/controller/list/delete_list.php?id=${id}`, {
                         method: 'DELETE'
                     })
                     .then(response => response.json())
@@ -190,7 +240,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                         if (data.success) {
                             Swal.fire(
                                 'Deleted!',
-                                'The payment has been deleted.',
+                                'The component has been deleted.',
                                 'success'
                             ).then(() => {
                                 location.reload();
@@ -198,7 +248,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                         } else {
                             Swal.fire(
                                 'Error!',
-                                'Failed to delete the payment.',
+                                'Failed to delete the component.',
                                 'error'
                             );
                         }
@@ -207,7 +257,7 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
                         console.error('Error:', error);
                         Swal.fire(
                             'Error!',
-                            'Failed to delete the payment.',
+                            'Failed to delete the component.',
                             'error'
                         );
                     });
@@ -223,9 +273,9 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
         const editModal = document.getElementById('edit-modal');
         const closeEditModalBtn = document.getElementById('closeEditModal');
         const addBtn = document.getElementById('addBtn');
-        const editPaymentPromoBtns = document.querySelectorAll('.editPaymentPromoBtn');
-        const paymentForm = document.getElementById('paymentForm');
-        const paymentList = document.getElementById('paymentList');
+        const editComputerCardBtns = document.querySelectorAll('.editComputerForm');
+        const computerForm = document.getElementById('computerForm');
+        const computerList = document.getElementById('computerList');
 
         addBtn.addEventListener('click', function() {
             addModal.classList.remove('hidden');
@@ -237,10 +287,10 @@ $query = mysqli_query($conn, "SELECT * FROM payment_promo");
             document.body.classList.remove('overflow-hidden');
         });
 
-        editPaymentPromoBtns.forEach(function(btn) {
+        editComputerCardBtns.forEach(function(btn) {
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
-                const paymentPromoId = btn.getAttribute('data-id');
+                const computerCardId = btn.getAttribute('data-id');
                 editModal.classList.remove('hidden');
                 document.body.classList.add('overflow-hidden');
             });

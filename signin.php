@@ -59,13 +59,10 @@ mysqli_close($conn);
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 
-<body style="background-image: url('https://image.cnbcfm.com/api/v1/image/107198349-1677094004134-gettyimages-1413907398-img_9361.jpeg?v=1706809419&w=740&h=416&ffmt=webp&vtcrop=y'); background-size: cover; background-repeat: no-repeat;">
+<body style="background-image: url('https://c1.wallpaperflare.com/preview/811/367/789/technology-computer-creative-design.jpg'); background-size: cover; background-repeat: no-repeat;">
     <div class="flex min-h-screen justify-center items-center">
         <div class="max-w-screen-xl bg-white shadow sm:rounded-lg flex justify-center flex-1">
             <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-                <div>
-                    <img src="https://res.cloudinary.com/dutlw7bko/image/upload/v1716618897/Cinema/Logo/Cuplikan_layar_2024-05-14_083355_jr8lu6_1_wc2vsh.png" class="w-[80px] mx-auto" alt="">
-                </div>
                 <div class="mt-12 flex flex-col items-center">
                     <h1 class="text-2xl xl:text-3xl font-extrabold text-black">Masuk</h1>
                     <div class="w-full flex-1 mt-8">
@@ -87,7 +84,7 @@ mysqli_close($conn);
                                     <span class="ml-3">Masuk</span>
                                 </button>
                                 <p class="mt-6 text-xs text-gray-600 text-center">
-                                    Saya setuju untuk mematuhi Ketentuan Layanan Binema Dan Kebijakan Privasinya
+                                    Saya setuju untuk mematuhi Ketentuan Layanan Ringbuilder Dan Kebijakan Privasinya
                                 </p>
                                 <p class="mt-6 text-sm text-gray-600 text-center">
                                     Belum punya akun? <a href="signup.php" class="text-indigo-500 font-semibold">Daftar</a>
@@ -98,7 +95,7 @@ mysqli_close($conn);
                 </div>
             </div>
             <div class="flex-1 bg-indigo-100 text-center hidden lg:flex rounded-tr-lg rounded-br-lg">
-                <div class="w-full bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bW92aWV8ZW58MHx8MHx8fDA%3D')"></div>
+                <div class="w-full bg-cover bg-center bg-no-repeat rounded-lg" style="background-image: url('https://wallpapers.com/images/featured/laptop-murjp1nk4lp1idlt.jpg')"></div>
             </div>
         </div>
     </div>
